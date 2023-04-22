@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ExamenTercerParcialCarlosEspinal.Views.AddPage"
+             xmlns:Converter="clr-namespace:ExamenTercerParcialCarlosEspinal.Converters"             
+             Title="NOTAS">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Converter:Base64ToImageSource x:Key="Base64ToImage" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <StackLayout>
+            
+            <StackLayout Padding="15, 0">
+                <Image  x:Name="imagePersona"
+                Source="profile.png"
+                Aspect="AspectFit"
+                HorizontalOptions="Center" 
+                WidthRequest="250"
+                HeightRequest="220"
+                IsVisible="{Binding IsImageDefault}">
+
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding TomarFotoCommand}"/>
+                    </Image.GestureRecognizers>
+
+                </Image>
+                <Image  x:Name="imagePersona2"
+                Source="{Binding Foto,  Converter={StaticResource Base64ToImage}}"
+                Aspect="AspectFit"
+                HorizontalOptions="Center" 
+                WidthRequest="300"
+                HeightRequest="220"
+                IsVisible="{Binding IsImageEdit}">
+
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding TomarFotoCommand}"/>
+                    </Image.GestureRecognizers>
+
+                </Image>
+
+
+                <Label Text="DESCRIPCION" FontSize="20" />
+                <Entry Text="{Binding Descripcion}" 
+               Placeholder="INGRESE LA DESCRIPCION"
+               Keyboard="Text"
+               Margin="0"
+               />
+
+               <DatePicker x:Name="PDate" Date="{Binding Fecha}" Margin="10,0,15,0"/>
+                <StackLayout  Spacing="15">
+                    <StackLayout Orientation="Horizontal">
+                        <Switch x:Name="TimeoutSwitch" IsToggled="True" />
+                        
+                    </StackLayout>
+                    <Button x:Name="GravarButton" Text="Grabar" HorizontalOptions="FillAndExpand" Clicked="Gravar_Clicked" BackgroundColor="#002069" TextColor="White" />
+                    <Button x:Name="ReproduzirButton" Text="Reproducir"  HorizontalOptions="FillAndExpand" Clicked="Reproduzir_Clicked" IsEnabled="False"  />
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal" Margin="0, 20">
+                    <Button Text="Guardar"
+                Command="{Binding GuardarCommand}"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="EndAndExpand" BackgroundColor="#002069" TextColor="White"/>
+
+                    <Button Text="Lista"
+                HorizontalOptions="FillAndExpand"
+                Command="{Binding ListarCommand}" BackgroundColor="#002069" TextColor="White"/>
+                </StackLayout>
+                
+                
+
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>
